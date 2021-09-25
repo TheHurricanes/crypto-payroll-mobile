@@ -28,6 +28,7 @@ export const SCREENS = {
   /** Contractor */
   CONTRACTOR: 'Contractor',
   CONTRACTOR_DETAILS: 'ContractorDetails',
+  CONTRACTOR_FORM: 'ContractorForm',
 
   /** Profile */
   PROFILE: 'Profile',

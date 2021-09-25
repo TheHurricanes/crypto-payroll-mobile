@@ -75,5 +75,9 @@
   "startPlaying": "Start playing now!",
   "notRegisterInAnyEvents": "You are not registered in any game",
   "viewEvents": "Find a game",
-  "free": "Free"
+  "free": "Free",
+  "contractors": "Contractors",
+  "addContractor": "Add a contractor",
+  "payContractor": "Pay contractor",
+  "contractorForm": "Contractor Form"
 }
