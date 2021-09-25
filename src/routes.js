@@ -18,6 +18,7 @@ import Prices from './screens/Prices';
 
 /** Contractor */
 import Contractor from './screens/Contractor';
+import ContractorDetails from './screens/ContractorDetails';
 
 /** Profile */
 import Profile from './screens/Profile';
@@ -98,6 +99,11 @@ export function ContractorsStackScreen() {
         component={Contractor}
         options={options({ colors })}
       />
+      <ContractorsStack.Screen
+        name={SCREENS.CONTRACTOR_DETAILS}
+        component={ContractorDetails}
+        options={options({ colors })}
+      />
     </ContractorsStack.Navigator>
   );
 }
@@ -133,6 +139,7 @@ export function MainStackScreen() {
     <MainStack.Navigator
       keyboardHidesTabBar
       tabBarOptions={tabBarOptions}
+      // initialRouteName={SCREENS.CONTRACTOR}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons

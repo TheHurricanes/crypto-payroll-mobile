@@ -5,7 +5,7 @@ export const UNIQUE_ID = 'my_uniq_id';
 export const APP_VERSION = Constants.manifest.version;
 export const USER_LANGUAGE = Localization.locale;
 export const LOCAL_STORAGE_KEYS = {
-  AUTH_TOKEN: 'popquiz_auth_token',
+  AUTH_TOKEN: '@auth_token',
 };
 
 export const USER_TYPE = {
@@ -27,27 +27,10 @@ export const SCREENS = {
 
   /** Contractor */
   CONTRACTOR: 'Contractor',
+  CONTRACTOR_DETAILS: 'ContractorDetails',
 
   /** Profile */
   PROFILE: 'Profile',
-
-
-  PLAYING: 'Playing',
-  ACCOUNT: 'Account',
-  BUSINESS: 'Business',
-  LANGUAGE: 'Language',
-  PAYMENTS: 'Payments',
-  APPEARANCE: 'Appearance',
-  EDITPAYOUT: 'EditPayout',
-  EDITACCOUNT: 'EditAccount',
-  EDITPAYMENT: 'EditPayment',
-  EVENTDETAILS: 'EventDetails',
-  PAYOUTMETHODS: 'PayoutMethods',
-  PLAY_EVENT_DETAILS: 'PlayEventDetails',
-  PRE_START_EVENT: 'PreStartEvent',
-  EVENT_START: 'EventStart',
-  START_PLAYING_EVENT: 'StartPlaying',
-  PRE_START_EVENT: 'PreStartEvent'
 };
 
 export const ERRORS = {
