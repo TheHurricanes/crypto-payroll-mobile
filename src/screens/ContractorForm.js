@@ -1,42 +1,33 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
+import {
+  Text, View, StyleSheet, TextInput, Button, Alert, TouchableOpacity,
+} from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import Constants from 'expo-constants';
 import i18n from '../utils/i18n';
 
 function ContractorForm({ navigation }) {
-    navigation.setOptions({
-      title: i18n.t('contractor'),
-    });
+  navigation.setOptions({
+    title: i18n.t('contractor'),
+  });
 
-  const { register, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
+  const { control, formState: { errors } } = useForm({
     defaultValues: {
       firstName: '',
-      lastName: ''
-    }
+      lastName: '',
+    },
   });
-  const onSubmit = data => {
-    console.log(data);
-  };
-
-  const onChange = arg => {
-    return {
-      value: arg.nativeEvent.text,
-    };
-  };
-
-  console.log('errors', errors);
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Name</Text>
       <Controller
         control={control}
-        render={({field: { onChange, onBlur, value }}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.input}
             onBlur={onBlur}
-            onChangeText={value => onChange(value)}
+            onChangeText={(value) => onChange(value)}
             value={value}
           />
         )}
@@ -46,11 +37,11 @@ function ContractorForm({ navigation }) {
       <Text style={styles.label}>Username</Text>
       <Controller
         control={control}
-        render={({field: { onChange, onBlur, value }}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.input}
             onBlur={onBlur}
-            onChangeText={value => onChange(value)}
+            onChangeText={(value) => onChange(value)}
             value={value}
           />
         )}
@@ -58,32 +49,31 @@ function ContractorForm({ navigation }) {
         rules={{ required: true }}
       />
       <Text style={styles.label}>Email</Text>
-        <Controller
-            control={control}
-            render={({field: { onChange, onBlur, value }}) => (
-            <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={value => onChange(value)}
-                value={value}
-            />
-            )}
-            name="firstName"
-            rules={{ required: true }}
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+          />
+        )}
+        name="firstName"
+        rules={{ required: true }}
       />
 
       <TouchableOpacity
-                activeOpacity={0.8}
-                // onPress={}
-                style={styles.appButtonContainer}
-              >
-                {/* <Text style={styles.appButtonText}>{title}</Text> */}
-                <Text style={styles.appButtonText}>ADD CONTRACTOR</Text>
-              </TouchableOpacity>
+        activeOpacity={0.8}
+        style={styles.appButtonContainer}
+      >
+        {/* <Text style={styles.appButtonText}>{title}</Text> */}
+        <Text style={styles.appButtonText}>Save</Text>
+      </TouchableOpacity>
 
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   label: {
@@ -102,7 +92,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    padding: 8,
+    paddingHorizontal: 20,
   },
   input: {
     borderColor: '#ddd',
@@ -117,20 +107,22 @@ const styles = StyleSheet.create({
   },
   appButtonText: {
     // fontSize: 12,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
+    color: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
   },
   appButtonContainer: {
+    width: 150,
     marginTop: 40,
     elevation: 8,
     height: 40,
-    backgroundColor: "lightblue",
+    backgroundColor: 'black',
+    alignSelf: 'center',
     borderRadius: 25,
     paddingVertical: 10,
-    paddingHorizontal: 12
-  }
+    paddingHorizontal: 12,
+  },
 });
 
 export default ContractorForm;

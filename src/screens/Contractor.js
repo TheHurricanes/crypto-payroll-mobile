@@ -20,6 +20,16 @@ import organizationActions from '../store/actions/organizationActions';
 const logger = Logger.get('Contractors.js');
 
 function Contractor({ navigation }) {
+  const renderRight = () => (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate(SCREENS.CONTRACTOR_FORM)}
+      style={styles.addButtonContainer}
+    >
+      <Text style={styles.addButtonContainerLink(colors)}>Add Contractor</Text>
+    </TouchableOpacity>
+  );
+
   navigation.setOptions({
     title: i18n.t('contractor'),
     headerRight: renderRight,
@@ -72,15 +82,6 @@ function Contractor({ navigation }) {
 
   //   }
   // }, [session.isUserLoggedIn]);
-  const renderRight = () => (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={() => navigation.navigate(SCREENS.CONTRACTOR_FORM)}
-      style={styles.addButtonContainer}
-    >
-      <Text style={styles.addButtonContainerLink(colors)}>Add Contractor</Text>
-    </TouchableOpacity>
-  );
 
   const Loading = () => (
     <FlatList
