@@ -29,7 +29,7 @@ function ContractorForm({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>First name</Text>
+      <Text style={styles.label}>Name</Text>
       <Controller
         control={control}
         render={({field: { onChange, onBlur, value }}) => (
@@ -43,7 +43,7 @@ function ContractorForm({ navigation }) {
         name="firstName"
         rules={{ required: true }}
       />
-      <Text style={styles.label}>Last name</Text>
+      <Text style={styles.label}>Username</Text>
       <Controller
         control={control}
         render={({field: { onChange, onBlur, value }}) => (
@@ -56,6 +56,20 @@ function ContractorForm({ navigation }) {
         )}
         name="lastName"
         rules={{ required: true }}
+      />
+      <Text style={styles.label}>Email</Text>
+        <Controller
+            control={control}
+            render={({field: { onChange, onBlur, value }}) => (
+            <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+            />
+            )}
+            name="firstName"
+            rules={{ required: true }}
       />
 
       <TouchableOpacity
