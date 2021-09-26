@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -41,15 +41,19 @@ function Contractor({ navigation }) {
   const [searchValue, setSearchValue] = useState('');
   const colors = useSelector((state) => state.appSettings.colors);
 
+  const fetchContractors = useCallback(
+    () => {
+      dispatch(organizationActions.getContractors());
+    }, [],
+  );
+
   useEffect(() => {
     try {
-      dispatch(organizationActions.getContractors({ orgId: 1 }));
+      fetchContractors();
     } catch (error) {
       logger.error(error);
     }
   }, []);
-
-  console.log(org);
 
   const contacts = [
     {
@@ -83,44 +87,42 @@ function Contractor({ navigation }) {
   //   }
   // }, [session.isUserLoggedIn]);
 
-  const Loading = () => (
-    <FlatList
-      data={[1, 2, 3]}
-      renderItem={() => <EventLoadingCard />}
-      keyExtractor={(item, idx) => idx.toString()}
-    />
-  );
-
   return (
     <View style={styles.container}>
-        <View style={styles.search}>
-          <View style={styles.searchComponent}>
-            <SearchBar
-              value={searchValue}
-              onBlur={onSearchBlur}
-              placeholder={i18n.t('searchEvents')}
-              onChangeText={setSearchValue}
-              colors={colors}
-            />
-          </View>
+      <View style={styles.search}>
+        <View style={styles.searchComponent}>
+          <SearchBar
+            value={searchValue}
+            onBlur={onSearchBlur}
+            placeholder={i18n.t('searchEvents')}
+            onChangeText={setSearchValue}
+            colors={colors}
+          />
         </View>
+      </View>
       <View style={styles.contacts}>
-        {contacts.map((contact, idx) => (
-          <View style={styles.fixToText} key={idx}>
-            <View style={styles.contractorProfile}>
-              <ProfileImage uri="https://api.abranhe.com/api/avatar" />
-              <Text style={styles.contact}>
-                {contact.username}
-              </Text>
+        <FlatList
+          data={org.contractors}
+          onRefresh={fetchContractors}
+          refreshing={false}
+          renderItem={({ item: contact }) => (
+            <View style={styles.fixToText}>
+              <View style={styles.contractorProfile}>
+                <ProfileImage uri="https://api.abranhe.com/api/avatar" />
+                <Text style={styles.contact}>
+                  {contact.username}
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS, { contractorId: contact.id })}
+                style={styles.appButtonContainer(colors)}
+              >
+                <Text style={styles.appButtonText}>Pay Contractor</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS)}
-              style={styles.appButtonContainer(colors)}
-            >
-              <Text style={styles.appButtonText}>Pay Contractor</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+          )}
+          keyExtractor={(item) => `${item.username}`}
+        />
       </View>
     </View>
   );

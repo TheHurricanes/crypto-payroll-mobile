@@ -1,25 +1,24 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import get from 'lodash/get';
-import { API_URL } from 'react-native-dotenv';
 import BaseServiceHelper from './BaseServiceHelper';
 import ExtraRequestsService from './ExtraRequestService';
 import LocalStorage from '../../utils/localStorage';
 import { LOCAL_STORAGE_KEYS } from '../../utils/constants';
 import Logger from '../../utils/logger';
+import { API_URL } from './env';
 
 const logger = Logger.get("BaseService.js");
 const authTokenKey = LOCAL_STORAGE_KEYS.AUTH_TOKEN;
 let refreshingAuthToken = false;
 
 export default class BaseService {
-  // url = API_URL;
-  url = 'https://popquizapi.hostrivia.com'
+  url = API_URL;
   constructor(urlPrefix) {
     this.url += urlPrefix;
   }
   static url() {
-    return 'http://192.168.0.24:4000';
+    return API_URL;
   }
 
   static async deleteSession() {

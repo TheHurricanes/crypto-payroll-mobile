@@ -5,10 +5,10 @@ class OrganizationService extends BaseService {
     super('/org');
   }
 
-  getContractors({ orgId }) {
+  getContractors() {
     return this.request({
       method: 'GET',
-      url: `${this.url}/${orgId}/contractors`,
+      url: `${this.url}/contractors`,
     }).then((res) => Promise.resolve(res))
       .catch((err) => Promise.reject(err));
   }
