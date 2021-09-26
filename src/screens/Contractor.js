@@ -72,7 +72,6 @@ function Contractor({ navigation }) {
     />
   );
 
-function Contractor() {
   return (
     <View style={styles.container}>
         <View style={styles.search}>
