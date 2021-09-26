@@ -36,7 +36,7 @@ export default function ModalClose({ colors = getThemeColors(), onPress }) {
         style={styles.icon}
       />
     </TouchableOpacity>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

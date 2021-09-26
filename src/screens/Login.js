@@ -6,9 +6,9 @@ import {
   Keyboard,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -17,10 +17,11 @@ import authActions from '../store/actions/authActions';
 import Button from '../components/Button';
 import { usernameRegEx, passwordRegEx } from '../utils/validation';
 import i18n from '../utils/i18n';
-import Logger from '../utils/logger'
+import Logger from '../utils/logger';
 import { SCREENS } from '../utils/constants';
 import { fontSize } from '../styles';
 import appSettingsActions from '../store/actions/appSettingsActions';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const logger = Logger.get('Login.js');
 
@@ -34,8 +35,8 @@ const Login = ({ navigation }) => {
       await dispatch(authActions.login(values));
       dispatch(appSettingsActions.hideLoginPage());
     } catch (err) {
-      logger.trace(err)
-      formik.setFieldError('username', i18n.t('usernameError'))
+      logger.warn(err);
+      formik.setFieldError('username', i18n.t('usernameError'));
     }
   };
 
@@ -53,18 +54,25 @@ const Login = ({ navigation }) => {
     validationSchema: loginSchema,
   });
 
-  const { values, handleChange, handleBlur, handleSubmit, errors, touched } = formik;
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    submitForm,
+    errors,
+    touched,
+  } = formik;
   const usernameErrors = touched.username && errors.username;
   const passwordErrors = touched.password && errors.password;
 
   return (
     <View style={styles.container(colors)}>
       <KeyboardAvoidingView behavior="padding">
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
           <View style={styles.formContainer}>
             <Text style={styles.title(colors)}>{i18n.t('login')}</Text>
             <View style={styles.form}>
-              <Text style={styles.errorLabel(usernameErrors)}>{usernameErrors}</Text>
+              <Text style={styles.errorLabel(textColor(usernameErrors))}>{usernameErrors}</Text>
               <TextInput
                 value={values.email}
                 style={styles.input(textColor(usernameErrors))}
@@ -77,27 +85,28 @@ const Login = ({ navigation }) => {
               <TextInput
                 value={values.password}
                 style={styles.input(textColor(passwordErrors))}
-                placeholder={i18n.t('password')}
                 placeholderTextColor={textColor(passwordErrors)}
+                placeholder={i18n.t('password')}
                 onBlur={handleBlur('password')}
                 onChangeText={handleChange('password')}
                 secureTextEntry
               />
             </View>
             <Button
-              type="Submit"
               title={i18n.t('login')}
-              onPress={handleSubmit}
+              onPress={submitForm}
               colors={colors}
             />
             <TouchableOpacity
-              onPress={() => navigation.navigate(SCREENS.SIGNUP)}
+              onPressIn={() => navigation.navigate(SCREENS.SIGNUP)}
               style={styles.signinLinkContainer}
             >
-              <Text style={styles.signInLink(colors)}>{i18n.t('noAccountYet')}</Text>
+              <Text style={styles.signInLink(colors)}>
+                {i18n.t('noAccountYet')}
+              </Text>
             </TouchableOpacity>
           </View>
-        </TouchableWithoutFeedback>
+        {/* </TouchableWithou/tFeedback> */}
       </KeyboardAvoidingView>
     </View>
   );
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: '3%',
   },
   errorLabel: color => ({
-    color: color,
+    color,
     alignSelf: 'flex-start',
   }),
   input: color => ({
@@ -135,7 +144,7 @@ const styles = StyleSheet.create({
     paddingVertical: '5%',
     paddingHorizontal: '4%',
     marginVertical: '3%',
-    color: color,
+    color,
     fontWeight: '600',
   }),
   signinLinkContainer: {
@@ -155,6 +164,6 @@ Login.propTypes = {
     navigate: PropTypes.func,
     setOptions: PropTypes.func.isRequired,
   }).isRequired,
-}
+};
 
 export default Login;

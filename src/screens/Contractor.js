@@ -178,15 +178,12 @@ const styles = StyleSheet.create({
   contact: {
     borderBottomWidth: 1,
     borderBottomColor: 'black',
-    // display: 'flex',
-    // alignItems: 'center',
     padding: 20,
     fontSize: 18,
-    // height: 80,
   },
   div: {
     width: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   search: {
     width: '80%',
@@ -198,33 +195,33 @@ const styles = StyleSheet.create({
   appButtonContainer: {
     elevation: 8,
     height: 40,
-    backgroundColor: "lightblue",
+    backgroundColor: 'lightblue',
     borderRadius: 25,
     paddingVertical: 10,
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
   },
   addButtonContainer: {
     width: '100%',
     elevation: 8,
     height: 40,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     color: 'black',
     borderRadius: 50,
     paddingVertical: 10,
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
   },
   addButtonText: {
-    color: "black",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
+    color: 'black',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
   },
   appButtonText: {
     // fontSize: 12,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
+    color: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
   },
   avatarContainer: {
     width: 50,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Modal from 'react-native-modal';
 import { StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,10 +24,11 @@ export default function Auth() {
               colors={colors}
               onPress={() => dispatch(appSettingsActions.hideLoginPage())}
             />
-          )
-        }} />
+          ),
+        }}
+      />
     </Modal>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -42,5 +43,5 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 20,
-  }
+  },
 });

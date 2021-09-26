@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const Button = ({ title, onPress, loading, style, colors }) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPressIn={onPress}
       style={{ ...styles.container(colors), ...style }}
     >
       <Text style={styles.title(colors)}>

@@ -6,6 +6,7 @@ export default {
   login: ({ username, password }) => {
     return async (dispatch) => {
       try {
+        console.log(username, password)
         const res = await AuthService.login({ username, password });
         await BaseService.saveSession({ 
           expiration: res.expires, 

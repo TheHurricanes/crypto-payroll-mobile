@@ -8,6 +8,7 @@ import store from './src/store';
 import baseServiceHelperInstance from './src/store/services/BaseServiceHelper';
 import BackgroundProcesses from './src/screens/BackgroundProcesses/BackgroundProcesses';
 import Auth from './src/screens/Auth';
+// import 'react-native-gesture-handler';
 
 export default function App() {
   baseServiceHelperInstance.setStore(store);
