@@ -29,7 +29,7 @@ function Home() {
         </View>
 
         <View style={styles.leyendItem}>
-          <View style={[styles.leyendCircle, { backgroundColor: 'rgb(0, 102, 255)' }]} />
+          <View style={[styles.leyendCircle, { backgroundColor: 'rgb(12, 205, 182)' }]} />
           <Text style={styles.leyendText}>
             Budget
           </Text>
@@ -59,7 +59,7 @@ function Home() {
           backgroundGradientFrom: colors.background,
           backgroundGradientTo: colors.background,
           decimalPlaces: 2,
-          color: (opacity = 1) => `rgba(0, 102, 255, ${opacity})`,
+          color: (opacity = 1) => `rgba(12, 205, 182, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(130, 130, 130, ${opacity})`,
           style: {
             borderRadius: 16
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   monthlyDetilsItemValue: {
     fontSize: 16,
-    color: '#333',
+    color: 'rgb(12, 205, 182)',
   },
 });
 

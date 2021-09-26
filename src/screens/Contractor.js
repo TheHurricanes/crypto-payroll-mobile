@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -26,7 +27,7 @@ function Contractor({ navigation }) {
       onPress={() => navigation.navigate(SCREENS.CONTRACTOR_FORM)}
       style={styles.addButtonContainer}
     >
-      <Text style={styles.addButtonContainerLink(colors)}>Add Contractor</Text>
+      <Text style={styles.addButtonContainerLink(colors)}>Add</Text>
     </TouchableOpacity>
   );
 
@@ -53,17 +54,17 @@ function Contractor({ navigation }) {
 
   const contacts = [
     {
-      name: 'Richard',
+      name: 'Richard Anderson',
       username: 'richard01',
       email: 'richard01@gmail.com',
     },
     {
-      name: 'David',
+      name: 'David Gill',
       username: 'david01',
       email: 'david01@gmail.com',
     },
     {
-      name: 'Brook',
+      name: 'Brook Hilton',
       username: 'brook02',
       email: 'brook02@gmail.com',
     },
@@ -74,14 +75,7 @@ function Contractor({ navigation }) {
     setSearchValue(e.target.value);
   };
 
-  const addContractor = () => {
-  };
-
-  // useEffect(() => {
-  //   if (session.isUserLoggedIn) {
-
-  //   }
-  // }, [session.isUserLoggedIn]);
+  const addContractor = () => { };
 
   const Loading = () => (
     <FlatList
@@ -93,35 +87,34 @@ function Contractor({ navigation }) {
 
   return (
     <View style={styles.container}>
-        <View style={styles.search}>
-          <View style={styles.searchComponent}>
-            <SearchBar
-              value={searchValue}
-              onBlur={onSearchBlur}
-              placeholder={i18n.t('searchEvents')}
-              onChangeText={setSearchValue}
-              colors={colors}
-            />
-          </View>
+      <View style={styles.search}>
+        <View style={styles.searchComponent}>
+          <SearchBar
+            value={searchValue}
+            onBlur={onSearchBlur}
+            placeholder={i18n.t('searchEvents')}
+            onChangeText={setSearchValue}
+            colors={colors}
+          />
         </View>
-      <View style={styles.contacts}>
+      </View>
+      <ScrollView style={styles.contacts}>
         {contacts.map((contact, idx) => (
-          <View style={styles.fixToText} key={idx}>
+          <TouchableOpacity style={styles.fixToText} key={idx} onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS)}>
             <View style={styles.contractorProfile}>
               <ProfileImage uri="https://api.abranhe.com/api/avatar" />
-              <Text style={styles.contact}>
-                {contact.username}
-              </Text>
+              <View style={styles.contractorInfo}>
+                <Text style={styles.contact}>
+                  {contact.name}
+                </Text>
+                <Text style={styles.contactEmail}>
+                  {contact.email}
+                </Text>
+              </View>
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS)}
-              style={styles.appButtonContainer(colors)}
-            >
-              <Text style={styles.appButtonText}>Pay Contractor</Text>
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -186,19 +179,27 @@ const styles = StyleSheet.create({
   contact: {
     borderBottomWidth: 1,
     borderBottomColor: 'black',
-    padding: 20,
     fontSize: 18,
+  },
+  contractorInfo: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  contactEmail: {
+    fontSize: 14,
+    color: '#0ccdb6',
   },
   div: {
     width: '100%',
     justifyContent: 'space-between',
   },
   addButtonContainerLink: (colors) => ({
-    color: colors.link,
+    color: '#0ccdb6', // colors.link,
   }),
   search: {
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',

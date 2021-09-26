@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View, Text, StyleSheet, TouchableOpacity,
-} from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import ProfileImage from '../components/ProfileImage';
 
@@ -185,10 +183,10 @@ function ContractorDetails() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {renderTopMenu()}
       {renderTabContent()}
-    </View>
+    </ScrollView>
   );
 }
 

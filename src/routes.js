@@ -97,7 +97,7 @@ export function ContractorsStackScreen() {
       <ContractorsStack.Screen
         name={SCREENS.CONTRACTOR}
         component={Contractor}
-        options={options({ colors })}
+        options={options({ colors, headerMode: 'screen' })}
       />
       <ContractorsStack.Screen
         name={SCREENS.CONTRACTOR_DETAILS}
@@ -135,7 +135,7 @@ export function MainStackScreen() {
   const colors = useSelector((state) => state.appSettings.colors);
 
   const tabBarOptions = {
-    activeTintColor: colors.primary,
+    activeTintColor: '#0ccdb6', // colors.primary,
     keyboardHidesTabBar: true,
     style: styles.tabBar(colors),
   };

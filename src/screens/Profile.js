@@ -9,6 +9,7 @@ import {
   ScrollView,
   Image,
   Share,
+  Dimensions,
 } from 'react-native';
 import {
   MaterialIcons,
@@ -299,7 +300,7 @@ function Profile({ navigation, user, session }) {
             {renderLevel()}
           </View>
           {renderUserInformation()}
-          
+
           <View style={styles.profileLinks}>
             {links.map(profileItem)}
           </View>
@@ -333,6 +334,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: colors.background,
+    height: Dimensions.get('window').height * .9,
   }),
   avatarContainer: colors => ({
     alignItems: 'center',
@@ -357,7 +359,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }),
   username: colors => ({
-    color: colors.shade1,
+    color: '#0ccdb6', // colors.shade1,
     fontSize: 18,
     fontWeight: '600',
     letterSpacing: 1.5,

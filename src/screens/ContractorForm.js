@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
   container: {
     color: '#fff',
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 20,
   },
   input: {
