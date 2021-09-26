@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import BackButton from './components/BackButton';
-import i18n from './utils/i18n';
 import { SCREENS } from './utils/constants';
 import { getIconName } from './utils/navigator';
 
@@ -13,8 +12,8 @@ import { getIconName } from './utils/navigator';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
 
-/** Prices */
-import Prices from './screens/Prices';
+/** Home */
+import Home from './screens/Home';
 
 /** Contractor */
 import Contractor from './screens/Contractor';
@@ -72,19 +71,19 @@ export function AuthStackScreen({ localOption }) {
   );
 }
 
-const PricesStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
-export function PricesStackScreen() {
+export function HomeStackScreen() {
   const colors = useSelector((state) => state.appSettings.colors);
 
   return (
-    <PricesStack.Navigator>
-      <PricesStack.Screen
-        name={SCREENS.PRICES}
-        component={Prices}
-        options={options({ colors })}
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name={SCREENS.HOME}
+        component={Home}
+        options={options({ colors, showHeader: false })}
       />
-    </PricesStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
@@ -145,7 +144,6 @@ export function MainStackScreen() {
     <MainStack.Navigator
       keyboardHidesTabBar
       tabBarOptions={tabBarOptions}
-      // initialRouteName={SCREENS.CONTRACTOR}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons
@@ -156,7 +154,7 @@ export function MainStackScreen() {
         ),
       })}
     >
-      <MainStack.Screen name={SCREENS.PRICES} component={PricesStackScreen} />
+      <MainStack.Screen name={SCREENS.HOME} component={HomeStackScreen} />
       <MainStack.Screen name={SCREENS.CONTRACTOR} component={ContractorsStackScreen} />
       <MainStack.Screen name={SCREENS.PROFILE} component={ProfileStackScreen} />
     </MainStack.Navigator>

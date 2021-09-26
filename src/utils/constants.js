@@ -22,8 +22,8 @@ export const SCREENS = {
   LOGIN: 'Login',
   SIGNUP: 'Signup',
 
-  /** Prices */
-  PRICES: 'Prices',
+  /** Home */
+  HOME: 'Home',
 
   /** Contractor */
   CONTRACTOR: 'Contractor',

@@ -6,7 +6,7 @@ import { SCREENS } from "./constants";
 
 export function getIconName({ routeName = SCREENS.PRICES }) {
   switch (routeName) {
-    case SCREENS.PRICES:
+    case SCREENS.HOME:
       return 'bar-chart';
     case SCREENS.PROFILE:
       return 'person-outline';

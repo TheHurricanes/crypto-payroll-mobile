@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  API_URLS,
+  API_URL,
 } from 'react-native-dotenv';
 import BaseServiceHelper from './BaseServiceHelper';
 import Logger from '../../utils/logger';
@@ -17,7 +17,7 @@ export default class ExtraRequestsService {
     }
 
     const options = {
-      url: `${API_URLS}/auth/login`,
+      url: `${API_URL}/auth/login`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
