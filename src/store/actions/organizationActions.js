@@ -2,8 +2,8 @@ import * as types from './types';
 import organizationService from '../services/OrganizationService';
 
 export default {
-  getContractors({ orgId }) {
-    return (dispatch) => organizationService.getContractors({ orgId })
+  getContractors() {
+    return (dispatch) => organizationService.getContractors()
       .then((res) => dispatch({ type: types.GET_ORGANIZATION_CONTRACTORS, contractors: res }))
       .catch((err) => {
         dispatch({ type: types.GET_ORGANIZATION_CONTRACTORS_FAILED });

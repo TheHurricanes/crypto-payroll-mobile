@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  API_URL,
-} from 'react-native-dotenv';
+import { API_URL } from './env';
 import BaseServiceHelper from './BaseServiceHelper';
 import Logger from '../../utils/logger';
 

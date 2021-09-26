@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -42,15 +42,19 @@ function Contractor({ navigation }) {
   const [searchValue, setSearchValue] = useState('');
   const colors = useSelector((state) => state.appSettings.colors);
 
+  const fetchContractors = useCallback(
+    () => {
+      dispatch(organizationActions.getContractors());
+    }, [],
+  );
+
   useEffect(() => {
     try {
-      dispatch(organizationActions.getContractors({ orgId: 1 }));
+      fetchContractors();
     } catch (error) {
       logger.error(error);
     }
   }, []);
-
-  console.log(org);
 
   const contacts = [
     {
@@ -77,14 +81,6 @@ function Contractor({ navigation }) {
 
   const addContractor = () => { };
 
-  const Loading = () => (
-    <FlatList
-      data={[1, 2, 3]}
-      renderItem={() => <EventLoadingCard />}
-      keyExtractor={(item, idx) => idx.toString()}
-    />
-  );
-
   return (
     <View style={styles.container}>
       <View style={styles.search}>
@@ -98,23 +94,30 @@ function Contractor({ navigation }) {
           />
         </View>
       </View>
-      <ScrollView style={styles.contacts}>
-        {contacts.map((contact, idx) => (
-          <TouchableOpacity style={styles.fixToText} key={idx} onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS)}>
-            <View style={styles.contractorProfile}>
-              <ProfileImage uri="https://api.abranhe.com/api/avatar" />
-              <View style={styles.contractorInfo}>
+      <View style={styles.contacts}>
+        <FlatList
+          data={org.contractors}
+          onRefresh={fetchContractors}
+          refreshing={false}
+          renderItem={({ item: contact }) => (
+            <View style={styles.fixToText}>
+              <View style={styles.contractorProfile}>
+                <ProfileImage uri="https://api.abranhe.com/api/avatar" />
                 <Text style={styles.contact}>
-                  {contact.name}
-                </Text>
-                <Text style={styles.contactEmail}>
-                  {contact.email}
+                  {contact.username}
                 </Text>
               </View>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS, { contractorId: contact.id })}
+                style={styles.appButtonContainer(colors)}
+              >
+                <Text style={styles.appButtonText}>Pay Contractor</Text>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+          )}
+          keyExtractor={(item) => `${item.username}`}
+        />
+      </View>
     </View>
   );
 }

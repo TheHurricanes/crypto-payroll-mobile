@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
 import ProfileImage from '../components/ProfileImage';
 
-function ContractorDetails() {
+function ContractorDetails({ navigation, route }) {
   const [currTab, setCurrTab] = useState(0);
+  const org = useSelector((state) => state.org);
+  const contractorDetail = org.contractors.find((c) => +c.id === +route.params.contractorId) || {};
 
   const renderTopMenu = () => {
     const tabs = [
@@ -25,14 +28,14 @@ function ContractorDetails() {
           <ProfileImage uri="https://api.abranhe.com/api/avatar" />
 
           <View style={styles.nameContainer}>
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.email}>johndoe@gmail.com</Text>
+            <Text style={styles.name}>{contractorDetail?.name}</Text>
+            <Text style={styles.email}>{contractorDetail?.email}</Text>
           </View>
         </View>
 
         <View style={styles.menu}>
           {tabs.map((tab, idx) => (
-            <TouchableOpacity style={styles.menuItem({ selected: currTab === idx })} onPress={() => setCurrTab(idx)}>
+            <TouchableOpacity key={idx} style={styles.menuItem({ selected: currTab === idx })} onPress={() => setCurrTab(idx)}>
               <Text key={`${idx}_${tab.title}`} style={styles.menuText}>{tab.title}</Text>
             </TouchableOpacity>
           ))}
@@ -45,22 +48,22 @@ function ContractorDetails() {
     const personalDetails = [
       {
         title: 'Name',
-        value: 'John Doe',
+        value: contractorDetail?.name,
         key: 'name',
       },
       {
+        title: 'Username',
+        value: contractorDetail?.username,
+        key: 'username',
+      },
+      {
         title: 'Email',
-        value: 'john@doe.com',
+        value: contractorDetail?.email,
         key: 'email',
       },
       {
-        title: 'Phone',
-        value: '(305)-234-1480',
-        key: 'phone',
-      },
-      {
         title: 'Address',
-        value: '123 Main St',
+        value: 'none',
         key: 'address',
       },
     ];
@@ -80,7 +83,7 @@ function ContractorDetails() {
 
         <View style={styles.bankAccountContainer}>
           <View style={styles.bankTop}>
-            <Text style={styles.bankAccountText}>Bank Account</Text>
+            <Text style={styles.bankAccountText}>Crypto Account</Text>
           </View>
 
           <View style={styles.bankDetails}>
