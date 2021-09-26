@@ -18,6 +18,7 @@ import Prices from './screens/Prices';
 
 /** Contractor */
 import Contractor from './screens/Contractor';
+import ContractorForm from './screens/ContractorForm';
 import ContractorDetails from './screens/ContractorDetails';
 
 /** Profile */
@@ -104,6 +105,11 @@ export function ContractorsStackScreen() {
         component={ContractorDetails}
         options={options({ colors })}
       />
+      <ContractorsStack.Screen
+        name={SCREENS.CONTRACTOR_FORM}
+        component={ContractorForm}
+        options={options({ colors })}
+      />
     </ContractorsStack.Navigator>
   );
 }
@@ -174,4 +180,3 @@ export function RootStackScreen() {
     </RootStack.Navigator>
   );
 }
-
