@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+  View, Text, StyleSheet, TouchableOpacity,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import ProfileImage from '../components/ProfileImage';
 
 function ContractorDetails() {
   const [currTab, setCurrTab] = useState(0);
@@ -21,9 +24,7 @@ function ContractorDetails() {
     return (
       <View style={styles.topMenu}>
         <View style={styles.topMenuRow}>
-          <View style={styles.avatarContainer}>
-            <Image source={{ uri: `https://api.abranhe.com/api/avatar` }} style={styles.avatar} />
-          </View>
+          <ProfileImage uri="https://api.abranhe.com/api/avatar" />
 
           <View style={styles.nameContainer}>
             <Text style={styles.name}>John Doe</Text>
@@ -64,7 +65,7 @@ function ContractorDetails() {
         value: '123 Main St',
         key: 'address',
       },
-    ]
+    ];
 
     return (
       <View style={styles.contentTab}>
@@ -123,13 +124,17 @@ function ContractorDetails() {
         paymentMethod: 'Check',
         amount: '$88.30',
       },
-    ]
+    ];
 
     const ammountOfPayments = payments.length;
 
     return (
       <View style={styles.contentTab}>
-        <Text style={styles.paymentsText}>{ammountOfPayments} payments found</Text>
+        <Text style={styles.paymentsText}>
+          {ammountOfPayments}
+          {' '}
+          payments found
+        </Text>
 
         <View style={styles.paymentsContainer}>
           {payments.map((payment, idx) => (
@@ -161,7 +166,7 @@ function ContractorDetails() {
             <Text style={styles.documentText}>{document}</Text>
           </TouchableOpacity>
         ))}
-        
+
       </View>
     );
   };
@@ -204,21 +209,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  avatarContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#ddd',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-    marginLeft: 10,
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
   nameContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -244,7 +234,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10,
     borderBottomColor: 'gray',
-    ...(selected && { borderBottomWidth: 3, })
+    ...(selected && { borderBottomWidth: 3 }),
   }),
   contentTab: {
     marginTop: 10,

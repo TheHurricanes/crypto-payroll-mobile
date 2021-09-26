@@ -1,7 +1,7 @@
 import { getThemeColors } from '../../styles';
 
 /* TODO: Remove mock data */
-import paymentsMock from '../../store/mock/payments';
+import paymentsMock from '../mock/payments';
 
 const defaultTheme = 'light';
 
@@ -36,6 +36,10 @@ export default {
     earnings: [],
     paymentMethods: [],
     payout: null,
+  },
+  org: {
+    name: '',
+    contractors: [],
   },
   events: {
     eventsMap: {},

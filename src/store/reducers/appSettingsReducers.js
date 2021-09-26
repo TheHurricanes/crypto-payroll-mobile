@@ -7,17 +7,16 @@ function appSettingsReducer(state = initialState.appSettings, action) {
       return { ...state, language: action.language };
 
     case types.GET_PAYOUT_METHODS:
-      return { ...state, payoutMethods: action.payoutMethods }
-
+      return { ...state, payoutMethods: action.payoutMethods };
 
     case types.SOCKET_CONNECTED: {
       return {
         ...state,
         status: {
           ...state.status,
-          socket: true
+          socket: true,
         },
-      }
+      };
     }
 
     case types.SOCKET_DISCONNECTED: {
@@ -25,9 +24,9 @@ function appSettingsReducer(state = initialState.appSettings, action) {
         ...state,
         status: {
           ...state.status,
-          socket: false
+          socket: false,
         },
-      }
+      };
     }
 
     case types.FETCH_SOCKET_CONNECTION_TOKEN: {
@@ -36,12 +35,12 @@ function appSettingsReducer(state = initialState.appSettings, action) {
         socket: {
           ...state.socket,
           connectionToken: action.token,
-        }
-      }
+        },
+      };
     }
 
     case types.FETCH_SOCKET_CONNECTION_TOKEN_FAILED: {
-      return { ...state, socket: { ...state.socket } }
+      return { ...state, socket: { ...state.socket } };
     }
 
     case types.THEME_CHANGED: {
@@ -49,15 +48,15 @@ function appSettingsReducer(state = initialState.appSettings, action) {
         ...state,
         theme: action.theme,
         colors: action.colors,
-      }
+      };
     }
 
     case types.GET_PAYMENTS: {
       return {
         ...state,
         payments: [
-          ...action.payments
-        ]
+          ...action.payments,
+        ],
       };
     }
 

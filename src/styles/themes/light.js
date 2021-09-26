@@ -11,6 +11,7 @@ export const colors = {
   preEventScreenColor: '#B6EDF3',
   playEventColor: '#B6EDF3',
   transparent: 'rgba(0, 0, 0, 0)',
+  link: '#00F',
 
   /* Grays */
   shade1: 'rgb(195, 194, 196)',

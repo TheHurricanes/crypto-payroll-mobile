@@ -33,6 +33,16 @@ class UserService extends BaseService {
       .catch((err) => Promise.reject(err));
   }
 
+  addOrg({ orgName }) {
+    return this.request({
+      method: 'POST',
+      url: `${this.url}/organization`,
+      data: { orgName },
+    })
+      .then((res) => Promise.resolve(res))
+      .catch((err) => Promise.reject(err));
+  }
+
   getUserEvents() {
     return this.request({
       method: 'GET',

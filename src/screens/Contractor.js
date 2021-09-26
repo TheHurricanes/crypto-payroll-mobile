@@ -1,36 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  Button,
-  Image
 } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import EventLoadingCard from '../components/EventLoadingCard';
 import { width } from '../utils/device';
 import i18n from '../utils/i18n';
 import Logger from '../utils/logger';
-import { fontSize } from '../styles';
 import SearchBar from '../components/SearchBar';
 import { SCREENS } from '../utils/constants';
-// import Button from '../components/Button';
+import ProfileImage from '../components/ProfileImage';
+import organizationActions from '../store/actions/organizationActions';
 
 const logger = Logger.get('Contractors.js');
 
 function Contractor({ navigation }) {
   navigation.setOptions({
     title: i18n.t('contractor'),
+    headerRight: renderRight,
   });
 
+  const dispatch = useDispatch();
+  const org = useSelector((state) => state.org);
   const session = useSelector((state) => state.session);
-  const colors = useSelector((state) => state.appSettings.colors);
-  const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const colors = useSelector((state) => state.appSettings.colors);
+
+  useEffect(() => {
+    try {
+      dispatch(organizationActions.getContractors({ orgId: 1 }));
+    } catch (error) {
+      logger.error(error);
+    }
+  }, []);
+
+  console.log(org);
 
   const contacts = [
     {
@@ -47,11 +56,11 @@ function Contractor({ navigation }) {
       name: 'Brook',
       username: 'brook02',
       email: 'brook02@gmail.com',
-    }
-  ]
+    },
+  ];
 
   const onSearchBlur = (e) => {
-    console.log(e.target.value);
+    logger.log(e.target.value);
     setSearchValue(e.target.value);
   };
 
@@ -63,6 +72,15 @@ function Contractor({ navigation }) {
 
   //   }
   // }, [session.isUserLoggedIn]);
+  const renderRight = () => (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate(SCREENS.CONTRACTOR_FORM)}
+      style={styles.addButtonContainer}
+    >
+      <Text style={styles.addButtonContainerLink(colors)}>Add Contractor</Text>
+    </TouchableOpacity>
+  );
 
   const Loading = () => (
     <FlatList
@@ -75,52 +93,42 @@ function Contractor({ navigation }) {
   return (
     <View style={styles.container}>
         <View style={styles.search}>
-          <SearchBar
+          <View style={styles.searchComponent}>
+            <SearchBar
               value={searchValue}
               onBlur={onSearchBlur}
               placeholder={i18n.t('searchEvents')}
               onChangeText={setSearchValue}
               colors={colors}
-          />
-          <View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate(SCREENS.CONTRACTOR_FORM)}
-              style={styles.addButtonContainer}
-            >
-              {/* <Text style={styles.appButtonText}>{title}</Text> */}
-              <Text style={styles.addButtonText}>+</Text>
-            </TouchableOpacity>
+            />
           </View>
         </View>
       <View style={styles.contacts}>
-        {contacts.map((contact) => {
-          {console.log(contact.name)}
-          return (
-            <View style={styles.fixToText}>
-              <View style={styles.avatarContainer}>
-                <Image source={{ uri: `https://api.abranhe.com/api/avatar` }} style={styles.avatar} />
-              </View>
+        {contacts.map((contact, idx) => (
+          <View style={styles.fixToText} key={idx}>
+            <View style={styles.contractorProfile}>
+              <ProfileImage uri="https://api.abranhe.com/api/avatar" />
               <Text style={styles.contact}>
                 {contact.username}
               </Text>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS)}
-                style={styles.appButtonContainer}
-              >
-                {/* <Text style={styles.appButtonText}>{title}</Text> */}
-                <Text style={styles.appButtonText}>Pay Contractor</Text>
-              </TouchableOpacity>
             </View>
-          );
-        })}
+            <TouchableOpacity
+              onPress={() => navigation.navigate(SCREENS.CONTRACTOR_DETAILS)}
+              style={styles.appButtonContainer(colors)}
+            >
+              <Text style={styles.appButtonText}>Pay Contractor</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  searchComponent: {
+    width: '100%',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -173,7 +181,6 @@ const styles = StyleSheet.create({
   contacts: {
     flex: 1,
     height: 100,
-    paddingTop: 44,
   },
   contact: {
     borderBottomWidth: 1,
@@ -185,43 +192,47 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
   },
+  addButtonContainerLink: (colors) => ({
+    color: colors.link,
+  }),
   search: {
-    width: '80%',
+    width: '100%',
+    paddingHorizontal: 20,
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  appButtonContainer: (colors) => ({
+    elevation: 8,
+    height: 40,
+    backgroundColor: colors.primary,
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  }),
+  addButtonContainer: {
+    flex: 1,
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  appButtonContainer: {
-    elevation: 8,
-    height: 40,
-    backgroundColor: 'lightblue',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-  },
-  addButtonContainer: {
-    width: '100%',
     elevation: 8,
     height: 40,
     backgroundColor: 'white',
     color: 'black',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   addButtonText: {
     color: 'black',
     fontWeight: 'bold',
     alignSelf: 'center',
-    textTransform: 'uppercase',
   },
   appButtonText: {
     // fontSize: 12,
     color: '#fff',
     fontWeight: 'bold',
     alignSelf: 'center',
-    textTransform: 'uppercase',
   },
   avatarContainer: {
     width: 50,
@@ -231,6 +242,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
+  },
+  contractorProfile: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

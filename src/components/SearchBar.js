@@ -33,7 +33,7 @@ const SearchBar = ({ value, onChangeText, placeholder, colors }) => {
           </TouchableOpacity>
         ) : (
             <View />
-          )}
+        )}
       </View>
     </View>
   );
@@ -41,23 +41,22 @@ const SearchBar = ({ value, onChangeText, placeholder, colors }) => {
 
 const styles = StyleSheet.create({
   container: colors => ({
-    width,
+    width: '100%',
     backgroundColor: colors.background,
     alignItems: 'center',
   }),
   search: colors => ({
     height: 50,
-    marginTop: 15,
     marginBottom: 5,
     borderRadius: 5,
     // width: width * 0.95,
-    width: '65%',
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.shade11,
     justifyContent: 'space-between',
   }),
-  input: colors => ({
+  input: (colors) => ({
     flex: 1,
     height: '100%',
     alignItems: 'stretch',
